@@ -178,6 +178,8 @@ h2.sec{font-size:clamp(2rem,3.6vw,3rem);line-height:1.1;max-width:680px}
 .nav-link:hover{color:var(--blue)}
 .nav-link:hover::after{width:100%}
 .nav-cta{padding:11px 22px;font-size:.85rem}
+.nav-burger{display:none}
+.nav-mobile-menu{display:none}
 
 /* ===== HERO ===== */
 .hero{
@@ -784,7 +786,7 @@ h2.sec{font-size:clamp(2rem,3.6vw,3rem);line-height:1.1;max-width:680px}
 }
 @media (max-width:768px){
   .wrap{padding:0 20px}
-  .hero-inner{padding-top:170px}
+  .hero-inner{padding-top:90px}
   .hero-stats{flex-direction:column;gap:0}
   .hstat{border-right:none;border-bottom:1px solid rgba(255,255,255,.08);padding:16px 0;margin-right:0}
   .hstat:last-child{border-bottom:none}
@@ -797,6 +799,34 @@ h2.sec{font-size:clamp(2rem,3.6vw,3rem);line-height:1.1;max-width:680px}
   .hud-corner{display:none}
   .nav{padding:10px 12px 10px 20px}
   .nav-cta{display:none}
+  .nav-burger{
+    display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;
+    width:38px;height:38px;border-radius:50%;background:transparent;flex-shrink:0;
+  }
+  .nav-burger span{
+    display:block;width:18px;height:2px;border-radius:1px;background:var(--ink);
+    transition:transform .25s var(--ease),opacity .25s var(--ease);
+  }
+  .nav.over-dark .nav-burger span{background:#fff}
+  .nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .nav-burger.open span:nth-child(2){opacity:0}
+  .nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .nav-mobile-menu{
+    display:flex;flex-direction:column;
+    position:fixed;top:78px;left:50%;transform:translate(-50%,-10px);
+    width:min(1200px,calc(100% - 32px));
+    background:rgba(8,28,58,.96);
+    backdrop-filter:blur(20px) saturate(180%);
+    -webkit-backdrop-filter:blur(20px) saturate(180%);
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:20px;padding:10px;
+    opacity:0;visibility:hidden;pointer-events:none;
+    transition:opacity .25s var(--ease),transform .25s var(--ease),visibility .25s;
+    z-index:999;
+  }
+  .nav-mobile-menu.open{opacity:1;visibility:visible;pointer-events:auto;transform:translate(-50%,0)}
+  .nav-mobile-link{padding:14px 16px;font-size:.95rem;font-weight:600;color:#fff;border-radius:12px}
+  .nav-mobile-link:hover{background:rgba(255,255,255,.06);color:var(--cyan)}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
@@ -837,7 +867,17 @@ h2.sec{font-size:clamp(2rem,3.6vw,3rem);line-height:1.1;max-width:680px}
       <li><a href="#contact" class="nav-link">Contact</a></li>
     </ul>
     <a href="#assessment" class="btn btn-glow nav-cta">Book a Discovery Call <span class="arr">→</span></a>
+    <button class="nav-burger" id="navBurger" aria-label="Open menu" aria-expanded="false" aria-controls="navMobileMenu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+  <div class="nav-mobile-menu" id="navMobileMenu">
+    <a href="#solutions" class="nav-mobile-link">Solutions</a>
+    <a href="#about" class="nav-mobile-link">About</a>
+    <a href="#insights" class="nav-mobile-link">Insights</a>
+    <a href="#faq" class="nav-mobile-link">FAQ</a>
+    <a href="#contact" class="nav-mobile-link">Contact</a>
+  </div>
 </header>
 
 <main id="top">
@@ -1947,6 +1987,23 @@ function fcUpdate(){
 }
 window.addEventListener('scroll', fcUpdate, {passive:true});
 fcUpdate();
+
+/* ===================== MOBILE NAV MENU ===================== */
+var navBurger = document.getElementById('navBurger');
+var navMobileMenu = document.getElementById('navMobileMenu');
+function closeMobileMenu(){
+  navBurger.classList.remove('open');
+  navMobileMenu.classList.remove('open');
+  navBurger.setAttribute('aria-expanded', 'false');
+}
+navBurger.addEventListener('click', function(){
+  var open = navMobileMenu.classList.toggle('open');
+  navBurger.classList.toggle('open', open);
+  navBurger.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
+navMobileMenu.querySelectorAll('.nav-mobile-link').forEach(function(link){
+  link.addEventListener('click', closeMobileMenu);
+});
 
 })();
 </script>
