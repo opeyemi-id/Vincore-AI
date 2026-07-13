@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vincore AI — Revenue Systems & AI Automation</title>
+<meta name="description" content="Vincore AI builds intelligent revenue and operations systems for service businesses — automating lead response, fixing broken workflows, and recovering lost revenue.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+/* ── RESET ── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* ── TOKENS ── */
+:root {
+  --navy:       #0F1E3C;
+  --navy-mid:   #1B3161;
+  --teal:       #00C9B1;
+  --teal-dim:   rgba(0,201,177,0.11);
+  --teal-glow:  rgba(0,201,177,0.28);
+  --white:      #FFFFFF;
+  --off-white:  #F8F9FA;
+  --text:       #1A1A2E;
+  --muted:      #6B7280;
+  --border:     rgba(15,30,60,0.09);
+  --font:       'Inter', Arial, Helvetica, sans-serif;
+  --r:          16px;
+  --r-sm:       10px;
+}
+
+/* ── BASE ── */
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background: var(--off-white);
+  color: var(--text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { text-decoration: none; color: inherit; }
+
+/* ── SHARED ── */
+.container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+.eyebrow {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 3px; text-transform: uppercase;
+  color: var(--teal); margin-bottom: 14px;
+  display: block;
+}
+
+.section-title {
+  font-size: clamp(28px, 5vw, 44px);
+  font-weight: 900; color: var(--navy);
+  line-height: 1.12; letter-spacing: -0.6px;
+}
+
+.section-sub {
+  font-size: 17px; color: var(--muted);
+  line-height: 1.75; margin-top: 16px;
+  max-width: 560px;
+}
+
+/* ── CTA BUTTONS ── */
+.btn-teal {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--teal); color: var(--navy);
+  font-family: var(--font); font-size: 15px; font-weight: 700;
+  padding: 14px 28px; border-radius: 9px;
+  border: none; cursor: pointer;
+  box-shadow: 0 4px 18px var(--teal-glow);
+  transition: transform .2s, box-shadow .2s;
+}
+.btn-teal:hover { transform: translateY(-2px); box-shadow: 0 8px 26px var(--teal-glow); }
+
+.btn-navy {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--navy); color: var(--white);
+  font-family: var(--font); font-size: 14px; font-weight: 600;
+  padding: 10px 20px; border-radius: 8px;
+  border: none; cursor: pointer;
+  transition: background .2s, transform .15s;
+}
+.btn-navy:hover { background: var(--navy-mid); transform: translateY(-1px); }
+
+/* ═══════════════ NAV ═══════════════ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(248,249,250,0.90);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner {
+  max-width: 1080px; margin: 0 auto; padding: 0 24px;
+  height: 68px; display: flex;
+  align-items: center; justify-content: space-between;
+}
+.logo-wrap { display: flex; align-items: center; gap: 10px; }
+.logo-word { font-size: 21px; font-weight: 900; color: var(--navy); letter-spacing: -0.2px; }
+.logo-word em { color: var(--teal); font-style: normal; }
+
+/* ═══════════════ HERO ═══════════════ */
+.hero {
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding: 120px 0 80px;
+  position: relative; overflow: hidden;
+}
+.hero-bg-mark {
+  position: absolute; top: -5%; right: -4%;
+  width: 52%; max-width: 600px;
+  opacity: 0.038; pointer-events: none; z-index: 0;
+}
+.hero-content { position: relative; z-index: 1; max-width: 720px; }
+
+.hero-headline {
+  font-size: clamp(38px, 7vw, 68px);
+  font-weight: 900; color: var(--navy);
+  line-height: 1.07; letter-spacing: -1.8px;
+  margin-bottom: 24px;
+}
+.hero-headline .hi { color: var(--teal); }
+
+.hero-sub {
+  font-size: clamp(16px, 2.2vw, 19px);
+  color: var(--muted); line-height: 1.75;
+  max-width: 580px; margin-bottom: 40px;
+}
+
+.hero-cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--teal); color: var(--navy);
+  font-family: var(--font); font-size: 17px; font-weight: 700;
+  padding: 17px 34px; border-radius: 10px;
+  border: none; cursor: pointer;
+  box-shadow: 0 4px 22px var(--teal-glow);
+  transition: transform .2s, box-shadow .2s;
+}
+.hero-cta:hover { transform: translateY(-3px); box-shadow: 0 10px 30px var(--teal-glow); }
+
+/* ═══════════════ PROCESS ═══════════════ */
+.process { padding: 100px 0; background: var(--white); }
+.process-hdr { margin-bottom: 52px; }
+
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.p-card {
+  background: var(--off-white);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 36px;
+  position: relative;
+  transition: transform .2s, box-shadow .2s;
+}
+.p-card:hover { transform: translateY(-4px); box-shadow: 0 14px 34px rgba(15,30,60,0.09); }
+
+.p-num {
+  position: absolute; top: 28px; right: 28px;
+  font-size: 11px; font-weight: 700;
+  color: var(--teal); letter-spacing: 2px; opacity: .65;
+}
+.p-icon {
+  width: 44px; height: 44px;
+  background: var(--teal-dim); border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 20px;
+}
+.p-card h3 { font-size: 19px; font-weight: 800; color: var(--navy); margin-bottom: 5px; }
+.p-card .sub { font-size: 13px; font-weight: 600; color: var(--teal); margin-bottom: 16px; }
+.p-card ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+.p-card ul li {
+  font-size: 14px; color: var(--muted); line-height: 1.55;
+  padding-left: 16px; position: relative;
+}
+.p-card ul li::before {
+  content: ''; position: absolute; left: 0; top: 8px;
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--teal); opacity: .55;
+}
+
+/* ═══════════════ BUILDS ═══════════════ */
+.builds { padding: 100px 0; background: var(--off-white); }
+.builds-hdr { margin-bottom: 52px; }
+.builds-list { display: flex; flex-direction: column; gap: 18px; }
+
+.b-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 40px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 32px; align-items: start;
+  transition: transform .2s, box-shadow .2s;
+}
+.b-card:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(15,30,60,0.08); }
+
+.b-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.b-tag {
+  font-size: 10px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--teal); background: var(--teal-dim);
+  padding: 4px 10px; border-radius: 6px;
+}
+.b-card h3 { font-size: 21px; font-weight: 800; color: var(--navy); margin-bottom: 12px; line-height: 1.25; }
+.b-card > div > p { font-size: 15px; color: var(--muted); line-height: 1.72; margin-bottom: 20px; }
+
+.b-problem {
+  display: flex; gap: 12px; align-items: flex-start;
+  background: rgba(15,30,60,0.04);
+  border-left: 3px solid var(--teal);
+  border-radius: 0 8px 8px 0;
+  padding: 12px 16px;
+}
+.b-label { font-size: 10px; font-weight: 700; color: var(--teal); text-transform: uppercase; letter-spacing: 1.5px; white-space: nowrap; padding-top: 2px; }
+.b-ptext { font-size: 13px; color: var(--muted); line-height: 1.55; }
+
+.b-stack { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; }
+.b-stack span {
+  font-size: 11px; font-weight: 600; color: var(--muted);
+  background: var(--off-white); border: 1px solid var(--border);
+  padding: 4px 10px; border-radius: 6px; white-space: nowrap;
+}
+
+/* ═══════════════ WHY VINCORE ═══════════════ */
+.why {
+  padding: 100px 0;
+  background: var(--navy);
+  position: relative; overflow: hidden;
+}
+.why-bg-mark {
+  position: absolute; bottom: -12%; left: -6%;
+  width: 48%; opacity: 0.04; pointer-events: none;
+}
+.why-content { position: relative; z-index: 1; max-width: 680px; }
+.why .eyebrow { color: var(--teal); }
+.why .section-title { color: var(--white); margin-bottom: 28px; }
+
+.why-body { display: flex; flex-direction: column; gap: 18px; }
+.why-body p { font-size: 17px; color: rgba(255,255,255,.70); line-height: 1.82; }
+.why-body .pull { color: rgba(255,255,255,.96); font-style: italic; font-size: 19px; font-weight: 500; }
+
+.why-credentials {
+  display: flex; gap: 8px; flex-wrap: wrap; margin-top: 32px;
+}
+.w-cred {
+  font-size: 12px; font-weight: 600;
+  color: rgba(255,255,255,.50);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 6px; padding: 6px 14px;
+}
+
+/* ═══════════════ CONTACT ═══════════════ */
+.contact { padding: 100px 0; background: var(--white); }
+.contact-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 64px; align-items: start;
+}
+.contact-left .section-title { margin-bottom: 14px; }
+.contact-sub { font-size: 16px; color: var(--muted); line-height: 1.72; margin-bottom: 32px; }
+
+.c-bullets { list-style: none; display: flex; flex-direction: column; gap: 14px; margin-bottom: 28px; }
+.c-bullets li { display: flex; align-items: flex-start; gap: 12px; font-size: 15px; color: var(--text); line-height: 1.55; }
+.c-check {
+  width: 20px; height: 20px; flex-shrink: 0; margin-top: 1px;
+  background: var(--teal-dim); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+}
+.c-no-pitch { font-size: 15px; font-weight: 700; color: var(--navy); }
+
+.contact-right {
+  background: var(--off-white); border: 1px solid var(--border);
+  border-radius: var(--r); padding: 44px 36px;
+}
+.contact-right h3 { font-size: 20px; font-weight: 800; color: var(--navy); margin-bottom: 6px; }
+.contact-right > p { font-size: 14px; color: var(--muted); margin-bottom: 28px; line-height: 1.6; }
+
+/* Calendly placeholder — replace this div with your Calendly widget */
+.cal-box {
+  background: var(--white); border-radius: 12px;
+  border: 2px dashed rgba(0,201,177,.30);
+  padding: 48px 24px; text-align: center;
+}
+.cal-icon {
+  width: 48px; height: 48px; background: var(--teal-dim);
+  border-radius: 12px; display: flex; align-items: center;
+  justify-content: center; margin: 0 auto 16px;
+}
+.cal-note { font-size: 14px; color: var(--muted); margin-bottom: 22px; line-height: 1.65; }
+
+.c-email { margin-top: 22px; text-align: center; font-size: 13px; color: var(--muted); }
+.c-email a { color: var(--navy); font-weight: 600; }
+.c-email a:hover { color: var(--teal); }
+
+/* ═══════════════ FOOTER ═══════════════ */
+footer { background: var(--navy); padding: 32px 0; }
+.footer-inner {
+  max-width: 1080px; margin: 0 auto; padding: 0 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; flex-wrap: wrap;
+}
+.footer-copy { font-size: 13px; color: rgba(255,255,255,.35); }
+.footer-links { display: flex; gap: 22px; }
+.footer-links a { font-size: 13px; color: rgba(255,255,255,.45); transition: color .2s; }
+.footer-links a:hover { color: var(--teal); }
+
+/* ═══════════════ RESPONSIVE ═══════════════ */
+@media (max-width: 768px) {
+  .process-grid { grid-template-columns: 1fr; }
+  .b-card { grid-template-columns: 1fr; }
+  .b-stack { display: none; }
+  .contact-grid { grid-template-columns: 1fr; gap: 44px; }
+  .hero { padding-top: 100px; }
+}
+@media (max-width: 480px) {
+  .hero-headline { letter-spacing: -1px; }
+  .p-card, .b-card, .contact-right { padding: 28px 22px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ════════ NAV ════════ -->
+<nav>
+  <div class="nav-inner">
+    <a href="#home" class="logo-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 132 100" width="30" height="30" aria-hidden="true">
+        <circle cx="66" cy="82" r="22" fill="#00C9B1" opacity="0.13"/>
+        <polygon points="4,4 36,4 66,82" fill="#0F1E3C"/>
+        <polygon points="128,4 96,4 66,82" fill="#0F1E3C"/>
+        <circle cx="66" cy="82" r="9.5" fill="#00C9B1"/>
+        <circle cx="4" cy="4" r="5" fill="#00C9B1"/>
+        <circle cx="128" cy="4" r="5" fill="none" stroke="#00C9B1" stroke-width="2.4"/>
+      </svg>
+      <span class="logo-word">VINCORE <em>AI</em></span>
+    </a>
+    <a href="#contact" class="btn-navy">Book a Call &nbsp;→</a>
+  </div>
+</nav>
+
+
+<!-- ════════ HERO ════════ -->
+<section class="hero" id="home">
+  <svg class="hero-bg-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 132 100" aria-hidden="true">
+    <polygon points="4,4 36,4 66,82" fill="#0F1E3C"/>
+    <polygon points="128,4 96,4 66,82" fill="#0F1E3C"/>
+    <circle cx="66" cy="82" r="16" fill="#00C9B1"/>
+  </svg>
+
+  <div class="container">
+    <div class="hero-content">
+      <span class="eyebrow">Revenue Operations · AI Automation</span>
+      <h1 class="hero-headline">
+        Some revenue leaks<br>
+        are obvious.<br>
+        <span class="hi">Most aren't.</span>
+      </h1>
+      <p class="hero-sub">
+        Vincore AI builds intelligent revenue and operations systems for service businesses — automating lead response, fixing broken workflows, and uncovering the revenue you didn't know you were leaving behind.
+      </p>
+      <a href="#contact" class="hero-cta">Book a Discovery Call &nbsp;→</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════ PROCESS ════════ -->
+<section class="process" id="process">
+  <div class="container">
+    <div class="process-hdr">
+      <span class="eyebrow">How We Work</span>
+      <h2 class="section-title">Our Process</h2>
+      <p class="section-sub">A structured, business-first approach that starts with understanding how you operate — not jumping straight into tools.</p>
+    </div>
+
+    <div class="process-grid">
+
+      <div class="p-card">
+        <span class="p-num">01</span>
+        <div class="p-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00C9B1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+          </svg>
+        </div>
+        <h3>Discovery &amp; Diagnosis</h3>
+        <div class="sub">Understand first. Automate second.</div>
+        <ul>
+          <li>Map your revenue flow and operations to find exactly where leads, time, and money are slipping through</li>
+          <li>Assess existing tools and workflows so nothing we build creates new problems</li>
+          <li>Define what a "win" looks like for your specific business</li>
+        </ul>
+      </div>
+
+      <div class="p-card">
+        <span class="p-num">02</span>
+        <div class="p-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00C9B1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>
+          </svg>
+        </div>
+        <h3>System Design</h3>
+        <div class="sub">A blueprint before a single tool is touched.</div>
+        <ul>
+          <li>Design your custom revenue or operations system architecture before building anything</li>
+          <li>Every solution is documented, structured, and built to scale — not patched together</li>
+          <li>You see exactly what we're building and why before we begin</li>
+        </ul>
+      </div>
+
+      <div class="p-card">
+        <span class="p-num">03</span>
+        <div class="p-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00C9B1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+          </svg>
+        </div>
+        <h3>Build &amp; Deploy</h3>
+        <div class="sub">Done-for-you. Built to last.</div>
+        <ul>
+          <li>Build and configure your complete automation system — forms, workflows, alerts, integrations</li>
+          <li>Everything is tested against real scenarios before handover</li>
+          <li>You receive a working system, not a prototype</li>
+        </ul>
+      </div>
+
+      <div class="p-card">
+        <span class="p-num">04</span>
+        <div class="p-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#00C9B1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+        </div>
+        <h3>Handover &amp; Support</h3>
+        <div class="sub">You stay in control.</div>
+        <ul>
+          <li>Walk through exactly how your system works — no black boxes</li>
+          <li>Full documentation so your team never feels lost</li>
+          <li>Optional ongoing support for optimisation and expansion as your business grows</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════ RECENT BUILDS ════════ -->
+<section class="builds" id="work">
+  <div class="container">
+    <div class="builds-hdr">
+      <span class="eyebrow">Proof of Work</span>
+      <h2 class="section-title">Built. Tested. Deployed.</h2>
+      <p class="section-sub">Every system we build is designed around a real business problem — not a demo, not a concept.</p>
+    </div>
+
+    <div class="builds-list">
+
+      <div class="b-card">
+        <div>
+          <div class="b-tags">
+            <span class="b-tag">Service Business</span>
+            <span class="b-tag">Revenue Systems</span>
+          </div>
+          <h3>Speed-to-Lead Automation System</h3>
+          <p>A fully automated lead response system that captures inbound leads, scores them by urgency, detects duplicates, and fires instant Slack alerts to the sales team — all within minutes of a form submission.</p>
+          <div class="b-problem">
+            <span class="b-label">Problem&nbsp;Solved</span>
+            <span class="b-ptext">Businesses losing jobs to competitors because nobody followed up fast enough.</span>
+          </div>
+        </div>
+        <div class="b-stack">
+          <span>Typeform</span><span>Zapier</span><span>Airtable</span><span>Slack</span>
+        </div>
+      </div>
+
+      <div class="b-card">
+        <div>
+          <div class="b-tags">
+            <span class="b-tag">Real Estate</span>
+            <span class="b-tag">Operations Systems</span>
+          </div>
+          <h3>Property Management Automation System</h3>
+          <p>Two interconnected automation systems for a property management company — one handling invoice processing with duplicate detection and exception handling, one managing maintenance ticket escalation.</p>
+          <div class="b-problem">
+            <span class="b-label">Problem&nbsp;Solved</span>
+            <span class="b-ptext">Operations teams drowning in manual tracking, missed invoices, and unresolved maintenance issues.</span>
+          </div>
+        </div>
+        <div class="b-stack">
+          <span>Airtable</span><span>Typeform</span><span>Zapier</span><span>Slack</span>
+        </div>
+      </div>
+
+      <div class="b-card">
+        <div>
+          <div class="b-tags">
+            <span class="b-tag">Home Services</span>
+            <span class="b-tag">Revenue Systems</span>
+          </div>
+          <h3>HVAC Lead Intelligence System</h3>
+          <p>A smart lead capture and routing system for an HVAC contractor — with multi-service selection, urgency tiering, lead scoring formulas, and dual notification architecture ensuring the right technician gets the right lead instantly.</p>
+          <div class="b-problem">
+            <span class="b-label">Problem&nbsp;Solved</span>
+            <span class="b-ptext">Emergency HVAC calls sitting in a general inbox while the customer calls someone else.</span>
+          </div>
+        </div>
+        <div class="b-stack">
+          <span>Typeform</span><span>Zapier</span><span>Airtable</span><span>Slack</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════ WHY VINCORE ════════ -->
+<section class="why" id="about">
+  <svg class="why-bg-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 132 100" aria-hidden="true">
+    <polygon points="4,4 36,4 66,82" fill="#FFFFFF"/>
+    <polygon points="128,4 96,4 66,82" fill="#FFFFFF"/>
+    <circle cx="66" cy="82" r="16" fill="#00C9B1"/>
+  </svg>
+  <div class="container">
+    <div class="why-content">
+      <span class="eyebrow">About</span>
+      <h2 class="section-title">Why Vincore</h2>
+      <div class="why-body">
+        <p>Vincore AI was founded by Opeyemi, an automation and AI systems specialist with a background in ISO standards, governance, risk, and compliance — the discipline that separates systems built to last from workflows patched together and abandoned six months later.</p>
+        <p>Every system Vincore builds is designed with the same rigour applied to enterprise-grade operations: structured, documented, tested, and built around your specific business reality — not a generic template.</p>
+        <p>Vincore was built to solve a specific problem: service businesses losing revenue not because of bad products or poor salespeople, but because their operations and revenue systems simply weren't built to keep up.</p>
+        <p class="pull">That's the gap we close.</p>
+      </div>
+      <div class="why-credentials">
+        <span class="w-cred">ISO Standards</span>
+        <span class="w-cred">Governance &amp; Risk</span>
+        <span class="w-cred">Compliance</span>
+        <span class="w-cred">AI Automation</span>
+        <span class="w-cred">Revenue Systems</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════ CONTACT ════════ -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="contact-grid">
+
+      <div class="contact-left">
+        <span class="eyebrow">Let's Talk</span>
+        <h2 class="section-title">Book a Free<br>Discovery Call</h2>
+        <p class="contact-sub">If your business is losing leads, running on manual processes, or you suspect there's revenue slipping through the cracks — this is where we find out.</p>
+
+        <ul class="c-bullets">
+          <li>
+            <div class="c-check">
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                <polyline points="2,6 5,9 10,3" stroke="#00C9B1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            Identify the biggest gap in your current revenue or operations flow
+          </li>
+          <li>
+            <div class="c-check">
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                <polyline points="2,6 5,9 10,3" stroke="#00C9B1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            Show you what an automated system would look like for your specific business
+          </li>
+          <li>
+            <div class="c-check">
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                <polyline points="2,6 5,9 10,3" stroke="#00C9B1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            Give you a clear next step — whether you work with us or not
+          </li>
+        </ul>
+
+        <p class="c-no-pitch">No pitch. No pressure. Just clarity.</p>
+      </div>
+
+      <div class="contact-right">
+        <h3>Schedule Your Call</h3>
+        <p>30 minutes. Free. Pick a time that works for you.</p>
+
+        <!--
+          ╔══════════════════════════════════════════════╗
+          ║  CALENDLY: Replace the .cal-box div below   ║
+          ║  with your Calendly inline embed code.       ║
+          ║                                              ║
+          ║  Calendly embed looks like:                  ║
+          ║  <div class="calendly-inline-widget"         ║
+          ║    data-url="https://calendly.com/YOUR_LINK" ║
+          ║    style="min-width:320px;height:630px;">    ║
+          ║  </div>                                      ║
+          ║  <script src="https://assets.calendly.com/  ║
+          ║  assets/external/widget.js"></script>        ║
+          ╚══════════════════════════════════════════════╝
+        -->
+        <div class="cal-box">
+          <div class="cal-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00C9B1" stroke-width="2" stroke-linecap="round">
+              <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+            </svg>
+          </div>
+          <p class="cal-note">Click below to book a 30-minute discovery call at a time that works for you.</p>
+          <a href="#" class="btn-teal">Book a Call &nbsp;→</a>
+        </div>
+
+        <p class="c-email">
+          Or reach out directly:&nbsp;
+          <a href="mailto:opeyemi@vincoreai.com">opeyemi@vincoreai.com</a>
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ════════ FOOTER ════════ -->
+<footer>
+  <div class="footer-inner">
+    <span class="footer-copy">© 2026 Vincore AI. All rights reserved.</span>
+    <div class="footer-links">
+      <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://x.com" target="_blank" rel="noopener">X</a>
+      <a href="mailto:opeyemi@vincoreai.com">Email</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
