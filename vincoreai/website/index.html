@@ -1963,8 +1963,24 @@ btnNext.addEventListener('click', function(){
   if (current < totalSteps){
     goToStep(current + 1);
   } else {
-    form.style.display = 'none';
-    successEl.classList.add('active');
+    errorMsg.textContent = '';
+    btnNext.disabled = true;
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    }).then(function(response){
+      if (response.ok){
+        form.style.display = 'none';
+        successEl.classList.add('active');
+      } else {
+        errorMsg.textContent = 'Something went wrong submitting your request. Please try again.';
+        btnNext.disabled = false;
+      }
+    }).catch(function(){
+      errorMsg.textContent = 'Something went wrong submitting your request. Please try again.';
+      btnNext.disabled = false;
+    });
   }
 });
 btnBack.addEventListener('click', function(){
