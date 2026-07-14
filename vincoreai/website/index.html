@@ -180,6 +180,7 @@ h2.sec{font-size:clamp(2rem,3.6vw,3rem);line-height:1.1;max-width:680px}
 .nav-cta{padding:11px 22px;font-size:.85rem}
 .nav-burger{display:none}
 .nav-mobile-menu{display:none}
+.nav-overlay{display:none}
 
 /* ===== HERO ===== */
 .hero{
@@ -813,20 +814,28 @@ h2.sec{font-size:clamp(2rem,3.6vw,3rem);line-height:1.1;max-width:680px}
   .nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
   .nav-mobile-menu{
     display:flex;flex-direction:column;
-    position:fixed;top:78px;left:50%;transform:translate(-50%,-10px);
-    width:min(1200px,calc(100% - 32px));
-    background:rgba(8,28,58,.96);
+    position:fixed;top:0;right:0;height:100vh;width:min(300px,80%);
+    background:rgba(255,255,255,.72);
     backdrop-filter:blur(20px) saturate(180%);
     -webkit-backdrop-filter:blur(20px) saturate(180%);
-    border:1px solid rgba(255,255,255,.1);
-    border-radius:20px;padding:10px;
-    opacity:0;visibility:hidden;pointer-events:none;
-    transition:opacity .25s var(--ease),transform .25s var(--ease),visibility .25s;
-    z-index:999;
+    border:1px solid rgba(8,28,58,.07);
+    padding:100px 20px 20px;
+    transform:translateX(100%);
+    transition:transform .4s var(--ease);
+    z-index:1301;
   }
-  .nav-mobile-menu.open{opacity:1;visibility:visible;pointer-events:auto;transform:translate(-50%,0)}
-  .nav-mobile-link{padding:14px 16px;font-size:.95rem;font-weight:600;color:#fff;border-radius:12px}
-  .nav-mobile-link:hover{background:rgba(255,255,255,.06);color:var(--cyan)}
+  .nav-mobile-menu.open{transform:translateX(0)}
+  .nav-mobile-link{padding:14px 16px;font-size:.95rem;font-weight:600;color:var(--ink);border-radius:12px}
+  .nav-mobile-link:hover{background:var(--line);color:var(--blue)}
+  .nav-overlay{
+    display:block;
+    position:fixed;inset:0;
+    background:rgba(0,0,0,.5);
+    opacity:0;visibility:hidden;pointer-events:none;
+    transition:opacity .4s var(--ease),visibility .4s;
+    z-index:1300;
+  }
+  .nav-overlay.open{opacity:1;visibility:visible;pointer-events:auto}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
@@ -871,6 +880,7 @@ h2.sec{font-size:clamp(2rem,3.6vw,3rem);line-height:1.1;max-width:680px}
       <span></span><span></span><span></span>
     </button>
   </nav>
+  <div class="nav-overlay" id="navOverlay"></div>
   <div class="nav-mobile-menu" id="navMobileMenu">
     <a href="#solutions" class="nav-mobile-link">Solutions</a>
     <a href="#about" class="nav-mobile-link">About</a>
@@ -1991,18 +2001,30 @@ fcUpdate();
 /* ===================== MOBILE NAV MENU ===================== */
 var navBurger = document.getElementById('navBurger');
 var navMobileMenu = document.getElementById('navMobileMenu');
+var navOverlay = document.getElementById('navOverlay');
 function closeMobileMenu(){
   navBurger.classList.remove('open');
   navMobileMenu.classList.remove('open');
+  navOverlay.classList.remove('open');
   navBurger.setAttribute('aria-expanded', 'false');
 }
 navBurger.addEventListener('click', function(){
   var open = navMobileMenu.classList.toggle('open');
   navBurger.classList.toggle('open', open);
+  navOverlay.classList.toggle('open', open);
   navBurger.setAttribute('aria-expanded', open ? 'true' : 'false');
 });
+navOverlay.addEventListener('click', closeMobileMenu);
 navMobileMenu.querySelectorAll('.nav-mobile-link').forEach(function(link){
-  link.addEventListener('click', closeMobileMenu);
+  link.addEventListener('click', function(e){
+    e.preventDefault();
+    var targetId = link.getAttribute('href');
+    closeMobileMenu();
+    setTimeout(function(){
+      var target = document.querySelector(targetId);
+      if (target) target.scrollIntoView({behavior: reduceMotion ? 'auto' : 'smooth'});
+    }, 400);
+  });
 });
 
 })();
