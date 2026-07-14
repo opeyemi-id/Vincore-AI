@@ -1269,7 +1269,10 @@ h2.sec{font-size:clamp(2rem,3.6vw,3rem);line-height:1.1;max-width:680px}
     </div>
 
     <div class="form-panel reveal" data-delay="2">
-      <form id="assessment-form" novalidate>
+      <!-- FORMSPREE: Replace REPLACE_WITH_YOUR_ID with your actual Formspree form ID -->
+      <form id="assessment-form" action="https://formspree.io/f/REPLACE_WITH_YOUR_ID" method="POST" novalidate>
+        <input type="hidden" name="_subject" value="New Vincore AI Assessment Request">
+        <input type="hidden" name="_next" value="https://vincoreai.com">
         <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
         <div class="step-indicator">
           <span class="step-count" id="step-count">Step 1 of 5</span>
@@ -1542,19 +1545,19 @@ h2.sec{font-size:clamp(2rem,3.6vw,3rem);line-height:1.1;max-width:680px}
       <div>
         <div class="foot-title">Contact</div>
         <ul class="foot-links">
-          <li><a href="/cdn-cgi/l/email-protection#e68e838a8a89a6908f8885899483878fc885898b"><span class="__cf_email__" data-cfemail="87efe2ebebe8c7f1eee9e4e8f5e2e6eea9e4e8ea">[email&#160;protected]</span></a></li>
+          <li><a href="mailto:hello@vincoreai.com">hello@vincoreai.com</a></li>
           <li><a href="https://www.linkedin.com" target="_blank" rel="noopener">LinkedIn</a></li>
         </ul>
       </div>
     </div>
     <div class="foot-bottom">
-      <span>© 2025 Vincore AI. All rights reserved.</span>
+      <span>© 2026 Vincore AI. All rights reserved.</span>
       <span><a href="#footer-sec">Privacy Policy</a> &nbsp;·&nbsp; <a href="#footer-sec">Terms</a></span>
     </div>
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 (function(){
 'use strict';
 var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
