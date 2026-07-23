@@ -1,0 +1,112 @@
+{
+  "_instructions": "Fill in every field below before running any build script. Replace all [PLACEHOLDER] values. Do not change the key names — the build scripts reference them exactly.",
+
+  "vincore": {
+    "founder":   "Opeyemi Idonuagbe",
+    "company":   "Vincore AI",
+    "email":     "opeyemi@vincoreai.com",
+    "website":   "vincoreai.com",
+    "location":  "Lagos, Nigeria",
+    "tagline":   "AI Consulting & Revenue Systems"
+  },
+
+  "client": {
+    "business_name":   "[CLIENT BUSINESS NAME]",
+    "contact_name":    "[CLIENT CONTACT FULL NAME]",
+    "contact_role":    "[CLIENT ROLE — e.g. Owner, CEO, MD]",
+    "email":           "[CLIENT EMAIL ADDRESS]",
+    "phone":           "[CLIENT PHONE NUMBER]",
+    "location":        "[CLIENT CITY, STATE, COUNTRY]",
+    "website":         "[CLIENT WEBSITE URL — e.g. example.com]",
+    "instagram":       "[CLIENT INSTAGRAM HANDLE]",
+    "industry":        "[CLIENT INDUSTRY — e.g. Beauty Services, Engineering, Consulting]",
+    "tagline":         "[CLIENT BUSINESS TAGLINE OR DESCRIPTION]",
+    "logo_path":       "./assets/client_logo.jpeg"
+  },
+
+  "project": {
+    "code":            "VAI-CLI-[XXX]-001",
+    "name":            "[PROJECT NAME — e.g. Booking Automation & CRM Implementation]",
+    "type":            "[PROJECT TYPE — e.g. Full System Implementation, AI Advisory]",
+    "description":     "[ONE SENTENCE PROJECT DESCRIPTION]",
+    "duration":        "[DURATION — e.g. approximately 2 weeks (14 calendar days)]",
+    "start_date":      "[PROJECT START DATE]",
+    "end_date":        "[PROJECT END DATE]",
+    "go_live_date":    "[GO-LIVE DATE]",
+    "system_url":      "[LIVE SYSTEM URL — e.g. clientwebsite.com]",
+    "kickoff_date":    "[KICKOFF MEETING DATE]",
+    "uat_date":        "[UAT SESSION DATE]",
+    "handover_date":   "[HANDOVER DATE]"
+  },
+
+  "commercial": {
+    "fee_total":            "[TOTAL FEE — e.g. ₦600,000]",
+    "fee_deposit":          "[DEPOSIT AMOUNT — e.g. ₦300,000]",
+    "fee_balance":          "[BALANCE AMOUNT — e.g. ₦300,000]",
+    "deposit_pct":          "50",
+    "currency_symbol":      "₦",
+    "currency_code":        "NGN",
+    "invoice_deposit_no":   "VAI-INV-[NNN]",
+    "invoice_final_no":     "VAI-INV-[NNN]",
+    "deposit_amount_num":   "[DEPOSIT AS NUMBER — e.g. 5000 for ₦5,000 booking deposit]",
+    "booking_deposit":      "[CLIENT BOOKING DEPOSIT — e.g. ₦5,000]",
+    "referral_reward":      "[REFERRAL REWARD AMOUNT — e.g. ₦2,000]",
+    "payment_methods":      ["Bank Transfer", "Paystack"]
+  },
+
+  "documents": {
+    "cdr":    "[PROJECT_CODE]-CDR",
+    "prd":    "[PROJECT_CODE]-PRD",
+    "prop":   "[PROJECT_CODE]-PRP",
+    "sa":     "[PROJECT_CODE]-SA",
+    "nda":    "[PROJECT_CODE]-NDA",
+    "inv1":   "VAI-INV-[NNN]",
+    "charter":"[PROJECT_CODE]-PC",
+    "kom":    "[PROJECT_CODE]-KOM",
+    "kp":     "[PROJECT_CODE]-KP",
+    "pmp":    "[PROJECT_CODE]-PMP",
+    "gantt":  "[PROJECT_CODE]-PS",
+    "raid":   "[PROJECT_CODE]-RAID",
+    "crf":    "[PROJECT_CODE]-CRF",
+    "ar":     "[PROJECT_CODE]-AR",
+    "sdd":    "[PROJECT_CODE]-SDD",
+    "bl":     "[PROJECT_CODE]-BL",
+    "tvr":    "[PROJECT_CODE]-TVR",
+    "dc":     "[PROJECT_CODE]-DC",
+    "glc":    "[PROJECT_CODE]-GLC",
+    "om":     "[PROJECT_CODE]-OM",
+    "ts":     "[PROJECT_CODE]-TS",
+    "wsr":    "[PROJECT_CODE]-WSR-001",
+    "cor":    "[PROJECT_CODE]-COR",
+    "hd":     "[PROJECT_CODE]-HD",
+    "caf":    "[PROJECT_CODE]-CAF",
+    "cc":     "[PROJECT_CODE]-CC",
+    "inv2":   "VAI-INV-[NNN]",
+    "map":    "[PROJECT_CODE]-MAP",
+    "brr":    "[PROJECT_CODE]-BRR",
+    "tr":     "[PROJECT_CODE]-TR"
+  },
+
+  "system": {
+    "components": [
+      "[COMPONENT 1 NAME — e.g. Branded Booking Website]",
+      "[COMPONENT 2 NAME — e.g. Smart Booking & Payment System]",
+      "[COMPONENT 3 NAME — e.g. Airtable CRM]",
+      "[COMPONENT 4 NAME — e.g. Automation Workflows]",
+      "[COMPONENT 5 NAME — e.g. Business Intelligence Dashboard]"
+    ],
+    "platform_crm":       "[CRM PLATFORM — e.g. Airtable]",
+    "platform_automation": "[AUTOMATION PLATFORM — e.g. Zapier]",
+    "platform_payment":   "[PAYMENT PLATFORM — e.g. Paystack]",
+    "platform_hosting":   "[HOSTING PLATFORM — e.g. Vercel]",
+    "platform_calendar":  "[CALENDAR PLATFORM — e.g. Google Calendar]",
+    "platform_email":     "[EMAIL PLATFORM — e.g. Gmail]",
+    "workflow_count":     "[NUMBER OF AUTOMATIONS — e.g. 6]"
+  },
+
+  "output": {
+    "dir":             "./output/",
+    "version":         "1.0",
+    "report_month":    "[MONTH YEAR — e.g. June 2026]"
+  }
+}
