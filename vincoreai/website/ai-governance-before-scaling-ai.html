@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Governance: What Business Leaders Need to Know Before Scaling AI | Vincore AI</title>
+<meta name="description" content="Your business is adopting AI. But who's responsible when something goes wrong? Discover the safeguards every business leader should consider before scaling AI.">
+<link rel="canonical" href="https://vincoreai.com/ai-governance-before-scaling-ai">
+<meta property="og:title" content="AI Governance: What Business Leaders Need to Know Before Scaling AI | Vincore AI">
+<meta property="og:description" content="Your business is adopting AI. But who's responsible when something goes wrong? Discover the safeguards every business leader should consider before scaling AI.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://vincoreai.com/ai-governance-before-scaling-ai">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AI Governance: What Business Leaders Need to Know Before Scaling AI | Vincore AI">
+<meta name="twitter:description" content="Your business is adopting AI. But who's responsible when something goes wrong? Discover the safeguards every business leader should consider before scaling AI.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --white:#ffffff;
+  --paper:#f2f9ff;
+  --ink:#081C3A;
+  --navy:#0a2350;
+  --navy-deep:#081C3A;
+  --blue:#2196F3;
+  --cyan:#54E0FF;
+  --cyan-dim:rgba(84,224,255,.14);
+  --teal:#40E0C8;
+  --silver:#c8d3e6;
+  --glowblue:#DDF4FF;
+  --gold:#e3c77e;
+  --text:#37415f;
+  --muted:#6b7794;
+  --line:rgba(8,28,58,.09);
+  --line-light:rgba(255,255,255,.1);
+  --glow:0 0 24px rgba(84,224,255,.4);
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--white);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;color:var(--ink);letter-spacing:-0.02em}
+a{text-decoration:none;color:var(--blue);transition:color .25s var(--ease)}
+a:hover{color:var(--cyan)}
+button{font-family:'Inter',sans-serif;cursor:pointer;border:none}
+::selection{background:var(--cyan);color:var(--navy-deep)}
+
+/* ===== shared ===== */
+.wrap{max-width:1240px;margin:0 auto;padding:0 32px}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:.72rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--blue);margin-bottom:18px;
+}
+.eyebrow::before{content:'';width:22px;height:2px;background:linear-gradient(90deg,var(--cyan),var(--blue));border-radius:1px}
+.eyebrow.on-dark{color:var(--cyan)}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:.92rem;font-weight:700;letter-spacing:.01em;
+  padding:16px 30px;border-radius:100px;
+  transition:transform .25s var(--ease),box-shadow .25s var(--ease),background .25s var(--ease),color .25s var(--ease);
+  position:relative;
+}
+.btn .arr{transition:transform .25s var(--ease)}
+.btn:hover .arr{transform:translateX(4px)}
+.btn-glow{
+  background:linear-gradient(135deg,var(--blue) 0%,#3fb0f7 60%,var(--cyan) 130%);
+  color:#fff;
+  box-shadow:0 8px 28px rgba(33,150,243,.35);
+}
+.btn-glow:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(84,224,255,.45);color:#fff}
+
+/* ===== NAV ===== */
+.nav{
+  position:fixed;top:18px;left:50%;transform:translateX(-50%);
+  width:min(1200px,calc(100% - 32px));
+  z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 14px 12px 26px;border-radius:100px;
+  background:rgba(255,255,255,.72);
+  backdrop-filter:blur(20px) saturate(180%);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);
+  border:1px solid rgba(8,28,58,.07);
+  box-shadow:0 8px 32px rgba(8,28,58,.08);
+  transition:box-shadow .35s,background .35s;
+}
+.nav.scrolled{background:rgba(255,255,255,.9);box-shadow:0 12px 40px rgba(8,28,58,.14)}
+.nav.over-dark{background:rgba(6,11,34,.55);border-color:rgba(255,255,255,.1)}
+.nav.over-dark .nav-link{color:rgba(255,255,255,.7)}
+.nav.over-dark .logo{color:#fff}
+.logo{
+  font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.3rem;
+  color:var(--ink);letter-spacing:-0.02em;display:flex;align-items:center;gap:9px;
+  transition:color .35s;
+}
+.logo em{font-style:normal;background:linear-gradient(100deg,var(--blue),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}
+.logo-orb{
+  width:26px;height:26px;border-radius:50%;position:relative;flex-shrink:0;
+  background:radial-gradient(circle at 34% 30%,#54a9f5 0%,var(--blue) 45%,var(--navy-deep) 100%);
+  box-shadow:0 0 14px rgba(84,224,255,.5);
+  animation:logoPulse 3s ease-in-out infinite;
+}
+.logo-orb::after{
+  content:'';position:absolute;inset:-5px;border-radius:50%;
+  border:1px solid rgba(84,224,255,.5);
+  border-top-color:transparent;border-bottom-color:transparent;
+  transform:rotate(-24deg);
+  animation:orbSpin 5s linear infinite;
+}
+@keyframes orbSpin{to{transform:rotate(336deg)}}
+@keyframes logoPulse{
+  0%,100%{box-shadow:0 0 14px rgba(84,224,255,.5)}
+  50%{box-shadow:0 0 26px rgba(84,224,255,.9)}
+}
+.nav-links{display:flex;align-items:center;gap:30px;list-style:none}
+.nav-link{
+  font-size:.85rem;font-weight:600;color:var(--text);position:relative;padding:4px 0;
+  transition:color .25s;
+}
+.nav-link::after{
+  content:'';position:absolute;left:0;bottom:-2px;height:2px;width:0;
+  background:linear-gradient(90deg,var(--cyan),var(--blue));border-radius:1px;
+  transition:width .3s var(--ease);
+}
+.nav-link:hover{color:var(--blue)}
+.nav-link:hover::after{width:100%}
+.nav-cta{padding:11px 22px;font-size:.85rem}
+.nav-burger{display:none}
+.nav-mobile-menu{display:none}
+
+/* ===== ARTICLE ===== */
+.article-hero{max-width:720px;padding:160px 32px 40px}
+.article-meta{
+  display:flex;align-items:center;flex-wrap:wrap;gap:10px;
+  font-size:.82rem;color:var(--muted);margin-bottom:22px;
+}
+.article-meta .cat{
+  font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.1em;font-size:.72rem;
+}
+.article-meta .sep{color:var(--line)}
+.article-h1{font-size:clamp(2rem,4vw,2.9rem);line-height:1.18;max-width:820px}
+.article-byline{
+  display:flex;align-items:center;gap:14px;margin-top:36px;padding-top:28px;
+  border-top:1px solid var(--line);max-width:720px;
+}
+.byline-orb{
+  width:44px;height:44px;border-radius:50%;flex-shrink:0;
+  background:radial-gradient(circle at 34% 30%,#54a9f5 0%,var(--blue) 45%,var(--navy-deep) 100%);
+  box-shadow:0 0 14px rgba(84,224,255,.35);
+}
+.byline-name{font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--ink);font-size:.95rem;display:block}
+.byline-title{font-size:.8rem;color:var(--muted)}
+
+.article-body{
+  max-width:720px;margin:0 auto;padding:20px 32px 100px;
+  font-size:1.05rem;line-height:1.8;color:var(--text);
+}
+.article-body p{margin-bottom:1.2em}
+.article-body p:last-child{margin-bottom:0}
+.article-label{margin-top:56px}
+.article-label:first-of-type{margin-top:8px}
+.article-body h2.article-label{display:flex;font-family:'Inter',sans-serif;margin-top:2.625rem;margin-bottom:.945rem}
+.article-body h2.article-label::before{flex-shrink:0}
+.article-steps{list-style:decimal;padding-left:1.5em;margin-bottom:1.2em}
+.article-steps li{margin-bottom:1.2em;padding-left:.25em}
+.article-steps li:last-child{margin-bottom:0}
+.article-steps li::marker{color:var(--blue);font-weight:700}
+.article-steps strong{display:block;color:var(--ink);font-weight:700}
+
+.article-cta{background:var(--navy);padding:110px 0;text-align:center}
+.article-cta h2{color:#fff;font-size:clamp(1.7rem,3.2vw,2.4rem);line-height:1.2;max-width:640px;margin:0 auto}
+.article-cta p{
+  font-size:1rem;line-height:1.8;color:rgba(214,226,248,.65);
+  max-width:520px;margin:22px auto 36px;
+}
+.article-cta .btn{margin:0 auto}
+.article-cta .cta-subtext{
+  font-size:.82rem;color:rgba(214,226,248,.45);margin:20px auto 0;max-width:none;
+}
+.article-cta .further-reading{margin-top:24px}
+.article-cta .further-reading .cta-subtext{margin:0 auto 8px}
+.article-cta .further-reading ul{list-style:disc inside;font-size:.82rem;line-height:1.8;color:rgba(214,226,248,.45)}
+.article-cta .further-reading a{color:rgba(214,226,248,.65);text-decoration:underline}
+.article-cta .further-reading a:hover{color:var(--cyan)}
+
+/* ===== FOOTER ===== */
+.footer{background:#040d1e;border-top:1px solid rgba(255,255,255,.06);padding:70px 0 36px;position:relative}
+.footer::before{
+  content:'';position:absolute;top:-1px;left:0;right:0;height:1px;z-index:2;
+  background:linear-gradient(90deg,transparent,rgba(84,224,255,.8),transparent);
+  background-size:40% 100%;background-repeat:no-repeat;
+  animation:energyFlow 5s linear infinite;
+  pointer-events:none;
+}
+@keyframes energyFlow{0%{background-position:-60% 0}100%{background-position:160% 0}}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:56px}
+.foot-tag{font-size:.88rem;color:rgba(214,226,248,.4);line-height:1.75;max-width:260px;margin-top:16px}
+.foot-title{font-size:.68rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);margin-bottom:20px}
+.foot-links{list-style:none;display:flex;flex-direction:column;gap:12px}
+.foot-links a{font-size:.88rem;color:rgba(214,226,248,.45)}
+.foot-links a:hover{color:#fff}
+.foot-bottom{
+  margin-top:56px;padding-top:26px;border-top:1px solid rgba(255,255,255,.05);
+  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  font-size:.76rem;color:rgba(214,226,248,.28);
+}
+.foot-bottom a{color:rgba(214,226,248,.28)}
+.foot-bottom a:hover{color:rgba(214,226,248,.6)}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width:1024px){
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .nav-links{display:none}
+}
+@media (max-width:768px){
+  .wrap{padding:0 20px}
+  .article-hero{padding:130px 20px 30px}
+  .article-body{padding:20px 20px 80px}
+  .article-cta{padding:80px 0}
+  .foot-grid{grid-template-columns:1fr;gap:36px}
+  .nav{padding:10px 12px 10px 20px}
+  .nav-cta{display:none}
+  .nav-burger{
+    display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;
+    width:38px;height:38px;border-radius:50%;background:transparent;flex-shrink:0;
+  }
+  .nav-burger span{
+    display:block;width:18px;height:2px;border-radius:1px;background:var(--ink);
+    transition:transform .25s var(--ease),opacity .25s var(--ease);
+  }
+  .nav.over-dark .nav-burger span{background:#fff}
+  .nav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .nav-burger.open span:nth-child(2){opacity:0}
+  .nav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .nav-mobile-menu{
+    display:flex;flex-direction:column;
+    position:fixed;top:78px;left:50%;transform:translateX(-50%);
+    width:min(1200px,calc(100% - 32px));
+    background:rgba(255,255,255,.72);
+    backdrop-filter:blur(20px) saturate(180%);
+    -webkit-backdrop-filter:blur(20px) saturate(180%);
+    border-bottom:1px solid rgba(8,28,58,.07);
+    border-radius:20px;
+    max-height:0;opacity:0;overflow:hidden;padding:0 10px;
+    transition:max-height .4s cubic-bezier(.16,1,.3,1),opacity .4s cubic-bezier(.16,1,.3,1);
+    z-index:999;
+  }
+  .nav-mobile-menu.open{max-height:360px;opacity:1;padding:10px}
+  .nav-mobile-link{padding:14px 16px;font-size:.95rem;font-weight:600;color:var(--ink);border-radius:12px}
+  .nav-mobile-link:hover{background:var(--line);color:var(--blue)}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+}
+
+/* ===== SCROLL TO TOP ===== */
+.vai-top-btn{
+  position:fixed;right:26px;bottom:calc(26px + env(safe-area-inset-bottom,0px));z-index:1400;
+  width:52px;height:52px;padding:0;border:none;border-radius:50%;background:transparent;cursor:pointer;
+  opacity:0;visibility:hidden;transform:translateY(16px);
+  transition:opacity .4s var(--ease),transform .4s var(--ease),visibility .4s;
+  -webkit-tap-highlight-color:transparent;
+}
+.vai-top-btn.is-visible{opacity:1;visibility:visible;transform:translateY(0)}
+.vai-top-btn.is-visible:hover,.vai-top-btn.is-visible:focus-visible{transform:translateY(-4px)}
+.vai-top-btn:focus-visible{outline:2px solid var(--cyan);outline-offset:6px}
+.vai-top-orb{
+  position:absolute;inset:0;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 34% 30%,#54a9f5 0%,var(--blue) 45%,var(--navy-deep) 100%);
+  box-shadow:0 10px 28px rgba(8,28,58,.3),0 0 18px rgba(84,224,255,.5);
+  animation:vaiTopFloat 3.2s ease-in-out infinite;
+  transition:box-shadow .3s var(--ease);
+}
+.vai-top-orb::after{
+  content:'';position:absolute;inset:-5px;border-radius:50%;
+  border:1px solid rgba(84,224,255,.6);
+  border-top-color:transparent;border-bottom-color:transparent;
+  animation:vaiTopSpin 5s linear infinite;
+}
+.vai-top-btn:hover .vai-top-orb,.vai-top-btn:focus-visible .vai-top-orb{box-shadow:0 12px 32px rgba(8,28,58,.35),0 0 32px rgba(84,224,255,.85)}
+.vai-top-orb svg{width:22px;height:22px;fill:none;stroke:#fff;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+@keyframes vaiTopFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes vaiTopSpin{from{transform:rotate(-24deg)}to{transform:rotate(336deg)}}
+@media (max-width:768px){
+  .vai-top-btn{right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));width:46px;height:46px}
+  .vai-top-orb svg{width:20px;height:20px}
+}
+@media (prefers-reduced-motion:reduce){
+  .vai-top-btn,.vai-top-orb{transition:none}
+  .vai-top-orb,.vai-top-orb::after{animation:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header>
+  <nav class="nav" id="nav" aria-label="Main">
+    <a href="/#top" class="logo"><span class="logo-orb"></span>Vincore&nbsp;<em>AI</em></a>
+    <ul class="nav-links">
+      <li><a href="/#solutions" class="nav-link">Solutions</a></li>
+      <li><a href="/#about" class="nav-link">About</a></li>
+      <li><a href="/#insights" class="nav-link">Insights</a></li>
+      <li><a href="/#faq" class="nav-link">FAQ</a></li>
+      <li><a href="/#assessment" class="nav-link">Contact</a></li>
+    </ul>
+    <a href="/#assessment" class="btn btn-glow nav-cta">Book a Discovery Call <span class="arr">→</span></a>
+    <button class="nav-burger" id="navBurger" aria-label="Open menu" aria-expanded="false" aria-controls="navMobileMenu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="nav-mobile-menu" id="navMobileMenu">
+    <a href="/#solutions" class="nav-mobile-link">Solutions</a>
+    <a href="/#about" class="nav-mobile-link">About</a>
+    <a href="/#insights" class="nav-mobile-link">Insights</a>
+    <a href="/#faq" class="nav-mobile-link">FAQ</a>
+    <a href="/#assessment" class="nav-mobile-link">Contact</a>
+  </div>
+</header>
+
+<main>
+<!-- ============ ARTICLE ============ -->
+<article>
+  <div class="wrap article-hero">
+    <span class="eyebrow">AI Strategy &amp; Governance</span>
+    <h1 class="article-h1">AI Governance: What Business Leaders Need to Know Before Scaling AI</h1>
+    <div class="article-meta" style="margin-top:22px">
+      <span>November 2026</span>
+    </div>
+    <div class="article-byline">
+      <span class="byline-orb" aria-hidden="true"></span>
+      <div>
+        <span class="byline-name">Opeyemi Idonuagbe</span>
+        <span class="byline-title">Founder, Vincore AI</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="article-body">
+    <p>Your employees are already using AI.</p>
+    <p>Some are drafting client emails with ChatGPT. Others are uploading documents to AI tools, automating workflows, or using AI to make decisions faster.</p>
+    <p>Productivity is improving. Tasks that once took hours now take minutes.</p>
+    <p>But here’s a question most business leaders haven’t stopped to ask:</p>
+    <p>Who is responsible when something goes wrong?</p>
+    <p>What happens when an employee uploads confidential client information into an unapproved AI tool? When an automated system sends inaccurate information to a customer? Or when an AI-generated recommendation leads to a costly business decision?</p>
+    <p>The technology might be intelligent.</p>
+    <p>But intelligence without oversight is a business risk.</p>
+
+    <h2 class="eyebrow article-label">The AI Risk Nobody Talks About Enough</h2>
+
+    <p>Businesses are racing to adopt AI, often without establishing clear rules for how it should be used.</p>
+    <p>The result is a growing gap between what AI systems can do and what organisations can safely manage.</p>
+    <p>Consider a simple scenario.</p>
+    <p>Your company deploys an AI assistant to handle customer enquiries. It works beautifully, responding instantly and reducing your team’s workload.</p>
+    <p>Then one day, it confidently promises a customer a discount your company never approved.</p>
+    <p>Who catches the mistake? Who corrects it? And who is accountable?</p>
+    <p>Now imagine that same lack of oversight in financial reporting, recruitment, or handling sensitive customer information.</p>
+    <p>The biggest risk isn’t always that AI will fail. It’s that your business won’t notice when it does.</p>
+
+    <h2 class="eyebrow article-label">What AI Governance Actually Means</h2>
+
+    <p>AI governance sounds complicated, but the principle is straightforward.</p>
+    <p>It’s the framework of policies, responsibilities, and controls that determines how AI is selected, deployed, monitored, and managed within an organisation.</p>
+    <p>Think of it as the rules of the road for your AI systems.</p>
+    <p>You wouldn’t give every employee unrestricted access to your company’s bank accounts simply because it makes transactions faster.</p>
+    <p>So why give AI systems unrestricted access to business information or decisions without appropriate safeguards?</p>
+    <p>Good governance doesn’t slow innovation.</p>
+    <p>It creates the conditions for businesses to scale AI with confidence.</p>
+
+    <h2 class="eyebrow article-label">Five Questions Every Business Leader Should Ask</h2>
+
+    <p>Before introducing another AI tool or expanding an existing automation, ask yourself:</p>
+    <ol class="article-steps">
+      <li><strong>What information can our AI access?</strong><p>Know which systems, documents, and customer records your AI tools can interact with. Sensitive information should have clear access restrictions.</p></li>
+      <li><strong>Who is accountable for its decisions?</strong><p>Every important AI-enabled process needs a human owner. Automation should never mean accountability disappears.</p></li>
+      <li><strong>How do we know its outputs are reliable?</strong><p>AI can generate convincing but incorrect information. Establish testing, monitoring, and human review for decisions where errors could cause harm.</p></li>
+      <li><strong>What happens when something goes wrong?</strong><p>Your business needs a way to detect errors, investigate incidents, correct outcomes, and suspend a system when necessary.</p></li>
+      <li><strong>Are we meeting our legal and regulatory obligations?</strong><p>Data protection, privacy, industry requirements, and contractual commitments still apply when AI enters the picture. Your obligations depend on where and how your business operates.</p></li>
+    </ol>
+    <p>If your leadership team cannot confidently answer these questions, scaling AI may be introducing risks you haven’t fully assessed.</p>
+
+    <h2 class="eyebrow article-label">You Don’t Need a Large Compliance Department to Start</h2>
+
+    <p>AI governance isn’t reserved for banks, multinational corporations, or heavily regulated industries.</p>
+    <p>A growing agency using AI for client communication needs it.</p>
+    <p>A contractor automating quotations and customer records needs it.</p>
+    <p>A professional services firm using AI to analyse confidential documents needs it.</p>
+    <p>And getting started doesn’t require a hundred-page policy manual.</p>
+    <p>Begin by identifying the AI tools your business uses, assigning responsibility for each system, defining acceptable data usage, and introducing human approval where the consequences of mistakes are significant.</p>
+    <p>Frameworks such as the NIST AI Risk Management Framework and ISO/IEC 42001 can provide useful structure as your organisation matures.</p>
+    <p>The objective isn’t to eliminate every possible risk.</p>
+    <p>It’s to understand your exposure and put appropriate controls in place before small mistakes become expensive problems.</p>
+
+    <h2 class="eyebrow article-label">Scale AI. Not Unmanaged Risk.</h2>
+
+    <p>AI adoption is no longer just a technology decision.</p>
+    <p>It’s a business leadership decision.</p>
+    <p>The organisations that benefit most from AI over the long term won’t necessarily be those deploying the most tools.</p>
+    <p>They’ll be those that understand where AI creates value, where it introduces risk, and how to maintain control as adoption grows.</p>
+    <p>At Vincore AI, we help businesses approach AI implementation with both operational performance and responsible governance in mind, connecting automation opportunities with the controls needed to manage them.</p>
+    <p>Because successful AI transformation isn’t simply about what your systems can do.</p>
+    <p>It’s about what your business can confidently trust them to do.</p>
+  </div>
+
+  <!-- ============ CTA ============ -->
+  <section class="article-cta">
+    <div class="wrap">
+      <h2>Is your business ready to scale AI responsibly?</h2>
+      <p>Whether you’re exploring AI adoption or already automating critical processes, understanding your governance gaps is a practical first step.</p>
+      <a href="https://vincoreai.com/#assessment" class="btn btn-glow">Book a Discovery Call <span class="arr">→</span></a>
+      <div class="further-reading">
+        <p class="cta-subtext">Further reading</p>
+        <ul>
+          <li><a href="https://www.nist.gov/itl/ai-risk-management-framework" target="_blank" rel="noopener noreferrer">NIST AI Risk Management Framework</a></li>
+          <li><a href="https://www.iso.org/standard/42001.html" target="_blank" rel="noopener noreferrer">ISO/IEC 42001: Artificial Intelligence Management System</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</article>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer" id="footer-sec">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a href="/#top" class="logo" style="color:#fff"><span class="logo-orb"></span>Vincore&nbsp;<em>AI</em></a>
+        <p class="foot-tag">Revenue systems, operations automation, and responsible AI adoption for service-based businesses worldwide.</p>
+      </div>
+      <div>
+        <div class="foot-title">Solutions</div>
+        <ul class="foot-links">
+          <li><a href="/#solutions">Revenue Systems</a></li>
+          <li><a href="/#solutions">Operations Systems</a></li>
+          <li><a href="/#solutions">AI Advisory</a></li>
+          <li><a href="/#assessment">Free Assessment</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="foot-title">Company</div>
+        <ul class="foot-links">
+          <li><a href="/#about">About</a></li>
+          <li><a href="/#insights">Insights</a></li>
+          <li><a href="/#contact">Contact</a></li>
+          <li><a href="/#assessment">Book a Call</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="foot-title">Contact</div>
+        <ul class="foot-links">
+          <li><a href="mailto:hello@vincoreai.com">hello@vincoreai.com</a></li>
+          <li><a href="https://www.linkedin.com" target="_blank" rel="noopener">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Vincore AI. All rights reserved.</span>
+      <span><a href="#footer-sec">Privacy Policy</a> &nbsp;·&nbsp; <a href="#footer-sec">Terms</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+'use strict';
+
+/* ===================== NAV SCROLL STATE ===================== */
+var nav = document.getElementById('nav');
+function onScroll(){
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+}
+window.addEventListener('scroll', onScroll, {passive:true});
+onScroll();
+
+/* ===================== MOBILE NAV MENU ===================== */
+var navBurger = document.getElementById('navBurger');
+var navMobileMenu = document.getElementById('navMobileMenu');
+function closeMobileMenu(){
+  navBurger.classList.remove('open');
+  navMobileMenu.classList.remove('open');
+  navBurger.setAttribute('aria-expanded', 'false');
+}
+navBurger.addEventListener('click', function(){
+  var open = navMobileMenu.classList.toggle('open');
+  navBurger.classList.toggle('open', open);
+  navBurger.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
+navMobileMenu.querySelectorAll('.nav-mobile-link').forEach(function(link){
+  link.addEventListener('click', closeMobileMenu);
+});
+
+})();
+</script>
+<button type="button" class="vai-top-btn" id="vaiTopBtn" aria-label="Scroll to top">
+  <span class="vai-top-orb"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 19V5"/><path d="M5.5 11.5L12 5l6.5 6.5"/></svg></span>
+</button>
+
+<script>
+(function(){
+'use strict';
+var btn = document.getElementById('vaiTopBtn');
+if (!btn) return;
+var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+var ticking = false;
+function update(){
+  ticking = false;
+  btn.classList.toggle('is-visible', window.scrollY > 400);
+}
+window.addEventListener('scroll', function(){
+  if (!ticking){ ticking = true; requestAnimationFrame(update); }
+}, {passive:true});
+btn.addEventListener('click', function(){
+  window.scrollTo({top:0, behavior: reduce.matches ? 'instant' : 'smooth'});
+});
+update();
+})();
+</script>
+</body>
+</html>
