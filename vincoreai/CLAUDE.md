@@ -18,8 +18,8 @@ When working in this repo, you assist with:
 
 ## Critical Rules
 
-1. **Never change brand colors** unless explicitly instructed. Colors are in `02-brand-assets/VAI-BRD-002_BrandGuidelines_v1.0.md`
-2. **Always match Vincore's voice** — direct, confident, practitioner-led, no fluff. See `02-brand-assets/VAI-BRD-004_WritingStyleGuide_v1.0.md`
+1. **Never change brand colors** unless explicitly instructed. Colors are in `02-brand-assets/VAI-BRD-001_BrandGuidelines_v2.0.md`
+2. **Always match Vincore's voice** — direct, confident, practitioner-led, no fluff.
 3. **Follow the document naming convention:** `VAI-[DEPT]-[NUMBER]_[ClearTitle]_vX.X`
 4. **When editing the website:** make surgical edits only. The live site is in `website/` and deployed via Vercel. Do not move or rename that folder.
 5. **When creating client deliverables:** follow the VDF framework (Initiate → Plan → Assess & Design → Execute → Close)
