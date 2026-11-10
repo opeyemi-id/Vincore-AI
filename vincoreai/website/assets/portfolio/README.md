@@ -1,7 +1,9 @@
 # Updating the portfolio
 
 The portfolio and case study pages build themselves from one file: `assets/portfolio/projects.json`.
-To add or change a project, you edit that file and add media to a folder. You never touch the HTML.
+To add or change a project, you edit that file and add media to a folder.
+
+The cards on the portfolio page also exist as plain HTML in `portfolio.html`, between the `STATIC PROJECT CARDS` comments, so search engines and visitors without JavaScript can read them. Visitors with JavaScript always see what is in `projects.json`. When you add a project or change a card's text, update that HTML copy as well so the two stay in step.
 
 ## Add a new project
 
@@ -9,7 +11,9 @@ To add or change a project, you edit that file and add media to a folder. You ne
 2. Create the folder `assets/portfolio/projects/invoice-automation/` with a `screens/` folder inside it.
 3. Add your media, using the names below.
 4. Open `assets/portfolio/projects.json`, copy the template from the bottom of this page, and paste it into the list. Every entry except the last needs a comma after its closing `}`.
-5. Fill in the fields, then commit and push (see below).
+5. Fill in the fields.
+6. Add a matching card to the `STATIC PROJECT CARDS` block in `portfolio.html`. Copying an existing card is the easiest way.
+7. Commit and push (see below).
 
 ## Files and naming
 
@@ -44,15 +48,15 @@ Very large or long videos should not go in the repo. Upload them to YouTube, Vim
 |---|---|
 | `slug` | The folder name and web address. Must match the folder exactly. |
 | `title` | Project name. |
-| `tags` | Short labels shown above the title. |
-| `status` | The honest label, such as `Portfolio demonstration` or `In development`. |
+| `tags` | The category shown above the title. |
+| `status` | The honest label, such as `Portfolio Demonstration` or `In Development`. |
 | `summary` | One or two sentences for the card and the top of the case study. |
 | `stack` | Tools used. |
-| `challenge` | The problem. |
-| `solution` | What you built. |
+| `challenge` | The business problem. Shown on the card and the case study. |
+| `solution` | The approach. Shown on the case study. |
 | `contribution` | What you personally did. |
-| `capabilities` | Bullet list of what the project demonstrates. |
-| `flow` | The steps in the animated "how it works" diagram, usually four. |
+| `capabilities` | Bullet list for "What this covers" on the case study. |
+| `flow` | The steps in the "how it works" diagram, usually four or five. |
 | `coverImage`, `posterImage` | Image file names. Leave empty to show "Demo coming soon". |
 | `screenshots` | List of screenshot file names. Clicking one opens a full-screen viewer. |
 | `videoFile` | Local MP4 file name. |
@@ -68,7 +72,7 @@ Keep it truthful: label demonstrations and unfinished work as what they are, and
 Run these from the repo folder:
 
 ```
-git add vincoreai/website/assets/portfolio
+git add vincoreai/website/assets/portfolio vincoreai/website/portfolio.html
 git commit -m "feat(portfolio): add invoice automation project"
 git push origin main
 ```
@@ -82,7 +86,7 @@ Vercel publishes the site automatically after the push, usually within a minute 
   "slug": "",
   "title": "",
   "tags": [],
-  "status": "Portfolio demonstration",
+  "status": "Portfolio Demonstration",
   "summary": "",
   "stack": [],
   "challenge": "",
