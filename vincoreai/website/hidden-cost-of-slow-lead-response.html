@@ -287,6 +287,19 @@ button{font-family:'Inter',sans-serif;cursor:pointer;border:none}
   .vai-top-orb,.vai-top-orb::after{animation:none}
 }
 </style>
+<script>
+/* New visits and refreshes start at the top. Back/forward and #hash links keep normal browser behaviour. */
+(function(){
+if (location.hash || !('scrollRestoration' in history)) return;
+var entry = performance.getEntriesByType('navigation')[0];
+if (entry && entry.type === 'back_forward') return;
+history.scrollRestoration = 'manual';
+window.addEventListener('pagehide', function(){ history.scrollRestoration = 'auto'; });
+var moved = false;
+['wheel','touchstart','keydown'].forEach(function(t){ window.addEventListener(t, function(){ moved = true; }, {passive:true, once:true}); });
+window.addEventListener('load', function(){ if (!moved && window.scrollY) window.scrollTo({top:0, behavior:'instant'}); });
+})();
+</script>
 </head>
 <body>
 
