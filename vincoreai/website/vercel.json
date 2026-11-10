@@ -12,5 +12,11 @@
       "destination": "/",
       "statusCode": 301
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/portfolio/projects/:slug",
+      "destination": "/portfolio-project"
+    }
   ]
 }
