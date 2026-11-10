@@ -59,7 +59,7 @@ Very large or long videos should not go in the repo. Upload them to YouTube, Vim
 | `videoEmbedUrl` | YouTube, Vimeo, or Loom link. |
 | `liveUrl` | Full website address. The website button only appears when this is set. |
 | `order` | Position on the page. Lower numbers come first. |
-| `featured` | `true` gives a large card and a case study page. `false` puts it in the "Also building" row, showing only title, status, and summary. |
+| `featured` | `true` gives a large card and a case study page. `false` keeps the entry in the file but hides it from the site. |
 
 Keep it truthful: label demonstrations and unfinished work as what they are, and only list results you can back up.
 

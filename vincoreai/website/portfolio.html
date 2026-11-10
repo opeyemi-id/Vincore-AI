@@ -284,12 +284,6 @@ h2.sec{font-size:clamp(1.9rem,3.4vw,2.9rem);line-height:1.12;max-width:720px}
 .p-body .stack{margin-top:18px}
 .p-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}
 .p-actions .btn{padding:13px 24px;font-size:.86rem}
-.also{margin-top:44px}
-.also h3{font-size:1.15rem}
-.also-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
-.also-card{border-radius:16px;padding:26px;background:#fff;border:1px solid var(--line)}
-.also-card h4{font-size:1.06rem;margin-top:12px}
-.also-card p{font-size:.88rem;line-height:1.7;color:var(--muted);margin-top:6px}
 .load-note{margin-top:40px;color:var(--muted);font-size:.95rem}
 
 /* ===== CAPABILITIES ===== */
@@ -383,7 +377,7 @@ h2.sec{font-size:clamp(1.9rem,3.4vw,2.9rem);line-height:1.12;max-width:720px}
   .p-body{padding:30px 26px}
   .about-grid{grid-template-columns:1fr;gap:36px}
   .about-photo{max-width:340px}
-  .path-grid,.creds,.also-grid{grid-template-columns:1fr}
+  .path-grid,.creds{grid-template-columns:1fr}
 }
 @media (max-width:560px){
   .pf-inner{grid-template-columns:minmax(0,1fr) 104px;padding-top:88px;padding-bottom:18px}
@@ -493,10 +487,6 @@ h2.sec{font-size:clamp(1.9rem,3.4vw,2.9rem);line-height:1.12;max-width:720px}
     <p class="sec-lead reveal" data-delay="2">Demonstrations and products in development. Each one starts with an operational problem and ends with a system that handles it.</p>
     <div class="p-list" id="projects"></div>
     <noscript><p class="load-note">Project details need JavaScript. Email <a href="mailto:opeyemi@vincoreai.com">opeyemi@vincoreai.com</a> for a walkthrough.</p></noscript>
-    <div class="also" id="also" hidden>
-      <h3 class="reveal">Also building</h3>
-      <div class="also-grid" id="alsoGrid"></div>
-    </div>
   </div>
 </section>
 
@@ -752,19 +742,9 @@ function card(p){
     '</div>' +
   '</article>';
 }
-function alsoCard(p, i){
-  return '<article class="also-card reveal" data-delay="' + i + '">' +
-    '<span class="' + statusClass(p.status) + '">' + esc(p.status) + '</span>' +
-    '<h4>' + esc(p.title) + '</h4><p>' + esc(p.summary) + '</p></article>';
-}
 var listEl = document.getElementById('projects');
 loadProjects().then(function(all){
   listEl.innerHTML = all.filter(function(p){ return p.featured; }).map(card).join('');
-  var rest = all.filter(function(p){ return !p.featured; });
-  if (rest.length){
-    document.getElementById('alsoGrid').innerHTML = rest.map(alsoCard).join('');
-    document.getElementById('also').hidden = false;
-  }
   reveal(); trackCards();
 }).catch(function(){
   listEl.innerHTML = '<p class="load-note">Projects could not load right now. Email <a href="mailto:opeyemi@vincoreai.com">opeyemi@vincoreai.com</a> for a walkthrough.</p>';
